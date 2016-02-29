@@ -133,6 +133,27 @@
 						}
 					}
 				}
+
+				var gridColumns = this.grid.map(function(row){
+					return row.length;
+				}).reduce(function(a, b){
+					return Math.max(a, b);
+				}, 0);
+
+				if( gridColumns > 0 && (gridColumns !== this.columns) && this.columns > 0 ){
+					var self = this;
+					var tmpItemList  = [];
+					self.grid.forEach(function(row){
+						row.forEach(function(item){
+							tmpItemList.push(item);
+						});
+					});
+					tmpItemList.forEach(function(item, index){
+						var colIndex = index % self.columns;
+						var rowIndex = parseInt( index / self.columns);
+						self.putItem(item, rowIndex, colIndex);
+					});
+				}
 			};
 
 			/**
